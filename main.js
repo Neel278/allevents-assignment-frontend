@@ -1,7 +1,7 @@
-const baseUrl = 'https://allevents-backend.herokuapp.com'
+const baseURL = 'https://allevents-backend.herokuapp.com';
 function fetchEvents() {
     return new Promise((resolve, reject) => {
-        fetch(`${baseUrl}/getEvents`)
+        fetch(`${baseURL}/getEvents`)
             .then(res => res.json())
             .then(data => {
                 resolve(data);
@@ -13,7 +13,7 @@ function fetchEvents() {
 }
 function fetchKeywords() {
     return new Promise((resolve, reject) => {
-        fetch(`${baseUrl}/getEventsCount`)
+        fetch(`${baseURL}/getEventsCount`)
             .then(res => res.json())
             .then(data => {
                 resolve(data);
@@ -26,13 +26,12 @@ function fetchKeywords() {
 
 async function renderEvents() {
     let events = await fetchEvents();
-    events = Object.values(events)
     const eventsList = document.getElementById('events-list');
-    for (let event of events) {
+    for (let [day, event] of Object.entries(events)) {
         const node = document.createElement('div');
         node.innerHTML = `
             <div class="row mt-3">
-            <h3>${event[0].day}</h3>
+            <h3>${day}</h3>
             <hr />
             <div class="col-sm-6">
                 <div class="row no-gutters py-2">
@@ -52,7 +51,7 @@ async function renderEvents() {
                     </div>
                     <div class="col">
                         <div class="px-2">
-                            <h5 class="text-secondary">${event[0].eventname}</h5>
+                            <h5 class="text-secondary">${event[1].eventname}</h5>
                             <a href="#" class="btn btn-primary">I'm interested</a>
                         </div>
                     </div>
@@ -65,7 +64,7 @@ async function renderEvents() {
                     </div>
                     <div class="col">
                         <div class="px-2">
-                            <h5 class="text-secondary">${event[0].eventname}</h5>
+                            <h5 class="text-secondary">${event[2].eventname}</h5>
                             <a href="#" class="btn btn-primary">I'm interested</a>
                         </div>
                     </div>
@@ -76,7 +75,7 @@ async function renderEvents() {
                     </div>
                     <div class="col">
                         <div class="px-2">
-                            <h5 class="text-secondary">${event[0].eventname}</h5>
+                            <h5 class="text-secondary">${event[3].eventname}</h5>
                             <a href="#" class="btn btn-primary">I'm interested</a>
                         </div>
                     </div>
@@ -100,7 +99,6 @@ async function renderTable() {
                 <td>${value}</td>
             `
             tableRow.appendChild(node)
-            // console.log(key)
         }
     }
 }
