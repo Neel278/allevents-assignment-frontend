@@ -5,7 +5,7 @@ function addDataFromCsv() {
         let { data } = Papa.parse(csvData, { header: true });
         for (let val of data) {
             try {
-                await fetch("http://localhost:5000/insertEvent", {
+                await fetch("https://allevents-backend.herokuapp.com/insertEvent", {
                     method: "POST",
                     headers: {
                         Accept: "application/json",
