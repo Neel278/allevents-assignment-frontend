@@ -1,7 +1,7 @@
 // script to add data from a csv file
 function addDataFromCsv() {
     $(document).ready(async function () {
-        let csvData = await $.get("../files/backend_task_sample_data.csv");
+        let csvData = await $.get("./files/backend_task_sample_data.csv");
         let { data } = Papa.parse(csvData, { header: true });
         for (let val of data) {
             try {
